@@ -115,7 +115,7 @@ provisioner:
       all:
         scenario_name: zookeeper-kerberos-rhel
 
-        zookeeper_quorum_authentication_type: none # server-server authentication does not support kerberos
+        zookeeper_quorum_authentication_type: mtls # server-server authentication does not support kerberos
         zookeeper_client_authentication_type: kerberos
         # zookeeper_sasl_protocol: kerberos
         sasl_protocol: scram

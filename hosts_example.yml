@@ -29,6 +29,12 @@ all:
     ## When a mechanism is selected, zookeeper.set.acl=true is added to kafka's server.properties. Note: property not added when using mTLS, set manually with Custom Properties
     # zookeeper_sasl_protocol: <none/kerberos/digest>
 
+    #### Zookeeper Server - Server Authentication ####
+    # zookeeper_quorum_authentication_type: <mtls/digest/digest_over_tls>
+
+    #### Zookeeper Server - Client Authentication ####
+    # zookeeper_client_authentication_type: <mtls/digest/kerberos>
+
     #### Kerberos Configuration ####
     ## Applicable when sasl_protocol is kerberos
     ## REQUIRED: Under each host set keytab file path and principal name, see below
