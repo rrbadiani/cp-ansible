@@ -4,7 +4,7 @@ set -e
 
 ## Variables
 
-export SCENARIO_NAME=zookeeper-tls-rhel
+export SCENARIO_NAME=zookeeper-digest-tls-rhel
 export START_BRANCH=6.1.x
 export START_UPGRADE_VERSION=6.1
 export CURRENT_VERSION=true

@@ -740,13 +740,17 @@ Validates that TLS is configured properly.
 
 ***
 
-### confluent.test/molecule/zookeeper-tls-rhel
+### confluent.test/molecule/zookeeper-digest-tls-rhel
 
-#### Scenario zookeeper-tls-rhel test's the following:
+#### Scenario zookeeper-digest-tls-rhel test's the following:
 
 Installs Confluent Platform on CentOS7
 
 Enables SASL SCRAM Auth on Zookeeper.
+
+Enables digest_over_tls Auth for Zookeeper Server to Server.
+
+Enables digest Auth for Zookeeper Server to Client.
 
 TLS enabled.
 
@@ -756,7 +760,7 @@ Secrets Protection enabled.
 
 Jolokia has TLS disabled.
 
-#### Scenario zookeeper-tls-rhel verify test's the following:
+#### Scenario zookeeper-digest-tls-rhel verify test's the following:
 
 Validates that Zookeeper is using TLS.
 
