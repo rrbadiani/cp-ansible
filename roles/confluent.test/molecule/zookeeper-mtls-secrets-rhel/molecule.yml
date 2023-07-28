@@ -159,6 +159,8 @@ provisioner:
         kafka_broker_jolokia_ssl_enabled: false
 
         zookeeper_ssl_enabled: true
+        zookeeper_quorum_authentication_type: digest_over_tls
+        zookeeper_client_authentication_type: digest
         sasl_protocol: scram
 
         secrets_protection_enabled: true
