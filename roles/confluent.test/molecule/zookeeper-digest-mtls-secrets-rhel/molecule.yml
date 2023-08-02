@@ -153,6 +153,8 @@ provisioner:
       all:
         scenario_name: zookeeper-digest-mtls-secrets-rhel
 
+        confluent_cli_download_enabled: true
+
         ssl_enabled: true
         zookeeper_ssl_mutual_auth_enabled: true
 
