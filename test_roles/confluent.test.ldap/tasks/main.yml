@@ -13,10 +13,11 @@
   yum:
     name:
       - rsyslog
-      - libselinux-python
+      # - libselinux-python
+      - python3-libselinux
       - openldap
       - openldap-servers
-      - compat-openldap
+      # - compat-openldap
       - openldap-clients
       - openldap-devel
       - nss-pam-ldapd
