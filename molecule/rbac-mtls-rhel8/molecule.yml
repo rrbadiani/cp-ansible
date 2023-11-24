@@ -210,7 +210,7 @@ provisioner:
       all:
         ssl_enabled: true
         ssl_mutual_auth_enabled: true
-
+        redhat_java_package_name: java-11-openjdk
         rbac_enabled: true
 
         sso_mode: oidc
