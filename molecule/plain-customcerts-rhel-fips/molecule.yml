@@ -149,7 +149,7 @@ provisioner:
         scenario_name: plain-customcerts-rhel-fips
         fips_enabled: true
         sasl_protocol: plain
-        redhat_java_package_name: java-8-openjdk
+        redhat_java_package_name: java-1.8.0-openjdk
 
         ssl_enabled: true
 
