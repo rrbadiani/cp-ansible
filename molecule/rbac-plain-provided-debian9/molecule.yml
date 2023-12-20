@@ -7,7 +7,6 @@
 ### Secrets protection enabled.
 ### Control Center disabled, metrics reporters enabled.
 ### LdapAuthenticateCallbackHandler for AuthN
-
 driver:
   name: docker
 platforms:
@@ -188,51 +187,42 @@ provisioner:
     group_vars:
       all:
         scenario_name: rbac-plain-provided-debian9
-
+        
         sasl_protocol: plain
-
-        ssl_enabled: true
-
-        ssl_provided_keystore_and_truststore: true
-        ssl_keystore_filepath: "{{ lookup('env', 'MOLECULE_SCENARIO_DIRECTORY') }}/generated_ssl_files/{{inventory_hostname}}.keystore.jks"
-        ssl_keystore_key_password: keystorepass
-        ssl_keystore_store_password: keystorepass
-        ssl_truststore_filepath: "{{ lookup('env', 'MOLECULE_SCENARIO_DIRECTORY') }}/generated_ssl_files/truststore.jks"
-        ssl_truststore_password: truststorepass
-        ssl_truststore_ca_cert_alias: CARoot
-
         rbac_enabled: true
         custom_java_path: /opt/jdk17 # Use custom Java 17
-
         kafka_broker_custom_listeners:
-          client_listener:
-            name: CLIENT
-            port: 9093
-            ssl_enabed: true
-            sasl_protocol: plain
-
+          external_listener:
+            name: EXTERNAL
+            port: 9094
+            sasl_protocol: none
         mds_super_user: mds
         mds_super_user_password: password
-
         schema_registry_ldap_user: schema_registry
         schema_registry_ldap_password: password
-
         kafka_connect_ldap_user: kafka_connect
         kafka_connect_ldap_password: password
-
         ksql_ldap_user: ksql
         ksql_ldap_password: password
-
         kafka_rest_ldap_user: kafka_rest
         kafka_rest_ldap_password: password
-
         control_center_ldap_user: control_center
         control_center_ldap_password: password
-
-        rbac_component_additional_system_admins:
-          - User:user1
-
         kafka_broker_custom_properties:
+          listener.security.protocol.map: INTERNAL:SASL_PLAINTEXT,BROKER:SASL_PLAINTEXT,EXTERNAL:SASL_PLAINTEXT
+          listener.name.external.sasl.oauthbearer.jwks.endpoint.url: https://dev-59009577.okta.com/oauth2/aus96p2og3u7Cpwu65d7/v1/keys
+          listener.name.external.sasl.oauthbearer.expected.audience: api://default
+          listener.name.external.oauthbearer.sasl.jaas.config: org.apache.kafka.common.security.oauthbearer.OAuthBearerLoginModule required;
+          listener.name.external.oauthbearer.sasl.server.callback.handler.class: org.apache.kafka.common.security.oauthbearer.secured.OAuthBearerValidatorCallbackHandler
+          listener.name.external.principal.builder.class: io.confluent.kafka.security.authenticator.OAuthKafkaPrincipalBuilder
+          listener.name.external.sasl.enabled.mechanisms: OAUTHBEARER
+          confluent.oauth.groups.claim.name: groups
+          confluent.metadata.server.user.store: LDAP_WITH_OAUTH
+          confluent.metadata.server.oauthbearer.jwks.endpoint.url: https://dev-59009577.okta.com/oauth2/aus96p2og3u7Cpwu65d7/v1/keys
+          confluent.metadata.server.oauthbearer.expected.issuer: https://dev-59009577.okta.com/oauth2/aus96p2og3u7Cpwu65d7
+          confluent.metadata.server.oauthbearer.expected.audience: Confluent,api://default,https://my-company.com
+          confluent.metadata.server.oauthbearer.sub.claim.name: sub
+          confluent.metadata.server.oauthbearer.groups.claim.name: groups
           ldap.java.naming.factory.initial: com.sun.jndi.ldap.LdapCtxFactory
           ldap.com.sun.jndi.ldap.read.timeout: 3000
           ldap.java.naming.provider.url: ldap://ldap1:389
@@ -246,31 +236,14 @@ provisioner:
           ldap.group.name.attribute: cn
           ldap.group.member.attribute.pattern: CN=(.*),OU=rbac,DC=example,DC=com
           ldap.user.object.class: account
-
-          # interbroker listener need to include user/password in this jaasconfig
-          listener.name.client.plain.sasl.jaas.config: org.apache.kafka.common.security.plain.PlainLoginModule required;
-          listener.name.client.plain.sasl.server.callback.handler.class: io.confluent.security.auth.provider.ldap.LdapAuthenticateCallbackHandler
-
-        kafka_broker_metrics_reporter_enabled: true
-        monitoring_interceptors_enabled: true
-
-        secrets_protection_enabled: true
-        kafka_broker_secrets_protection_encrypt_properties: [ldap.java.naming.security.credentials, kafka.rest.confluent.metadata.basic.auth.user.info]
-        # control_center_secrets_protection_encrypt_properties: [confluent.metadata.basic.auth.user.info]
-        schema_registry_secrets_protection_encrypt_properties: [confluent.metadata.basic.auth.user.info]
-        ksql_secrets_protection_encrypt_properties: [ksql.schema.registry.basic.auth.user.info, confluent.metadata.basic.auth.user.info]
-        kafka_rest_secrets_protection_encrypt_properties: [confluent.metadata.basic.auth.user.info]
-        kafka_connect_secrets_protection_encrypt_properties: [confluent.metadata.basic.auth.user.info]
-
+        rbac_component_additional_system_admins:
+          - User:user1
       ldap_server:
         ldaps_enabled: false
-
         ldap_admin_password: ldppassword
-
         ldap_rbac_group: rbac
         ldap_dc: example
         ldap_dc_extension: com
-
         ldap_users:
           - username: "{{schema_registry_ldap_user}}"
             password: "{{schema_registry_ldap_password}}"
