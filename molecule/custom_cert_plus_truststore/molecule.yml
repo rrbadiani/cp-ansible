@@ -143,7 +143,7 @@ provisioner:
   inventory:
     group_vars:
       all:
-        scenario_name: mtls-customcerts-rhel
+        scenario_name: custom_cert_plus_truststore
         ssl_enabled: true
         ssl_mutual_auth_enabled: true
         ssl_file_dir: /opt/test-ssl
