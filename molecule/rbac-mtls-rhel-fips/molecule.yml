@@ -144,6 +144,7 @@ provisioner:
 
         secrets_protection_enabled: true
         rbac_enabled: true
+        regenerate_ca: true
 
         kafka_broker_custom_listeners:
           client_listener:
