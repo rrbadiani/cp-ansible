@@ -138,18 +138,84 @@ provisioner:
     group_vars:
       all:
         scenario_name: rbac-mtls-rhel-fips
-        redhat_java_package_name: java-11-openjdk
+        redhat_java_package_name: java-17-openjdk
         ssl_enabled: true
-        fips_enabled: true
+        {# fips_enabled: true #}
         ssl_mutual_auth_enabled: true
 
         secrets_protection_enabled: true
         rbac_enabled: true
 
         kafka_broker_custom_listeners:
+          {# client_listener:
+            name: CLIENT
+            port: 9093 #}
           client_listener:
             name: CLIENT
-            port: 9093
+            port: 9094
+            ssl_enabled: false
+            ssl_mutual_auth_enabled: false
+            sasl_protocol: none
+          scram_client:
+            name: SCRAM_CLIENT
+            port: 9095
+            ssl_enabled: true
+            ssl_mutual_auth_enabled: false
+            sasl_protocol: scram
+
+        sasl_scram_users:
+          zookeeper:
+            principal: zookeeper
+            password: zookeeper
+          kafka:
+            principal: mds
+            password: mds
+          admin:
+            principal: admin
+            password: admin
+          client:
+            principal: client
+            password: client
+          kafka_connect:
+            principal: connectAdmin
+            password: connectAdmin
+          control_center:
+            principal: control_center
+            password: control_center
+          ksql:
+            principal: ksql
+            password: ksql
+          schema_registry:
+            principal: schema_registry
+            password: schema_registry
+
+        kafka_rest_authentication_type: basic
+        control_center_authentication_type: basic
+
+        control_center_basic_users:
+          admin:
+            principal: admin
+            password: admin-secret
+            roles: Administrators
+          guest:
+            principal: guest
+            password: guest-secret
+            roles: Restricted
+          test:
+            principal: test
+            password: test
+            roles: Administrators
+
+        zookeeper_custom_properties:
+          4lw.commands.whitelist: '*'
+          admin.enableServer: 'false'
+
+        control_center_custom_properties:
+          confluent.controlcenter.name: C3Name
+          confluent.controlcenter.rest.authentication.realm: ControlCenter
+          confluent.controlcenter.rest.thread.pool.max: 315
+          confluent.controlcenter.rest.thread.pool.min: 100
+        control_center_custom_java_args: "-Djava.io.tmpdir=/var/lib/kafka/c3/"
 
         mds_super_user: mds
         mds_super_user_password: password
