@@ -146,9 +146,6 @@ provisioner:
         rbac_enabled: true
 
         kafka_broker_custom_listeners:
-          {# client_listener:
-            name: CLIENT
-            port: 9093 #}
           client_listener:
             name: CLIENT
             port: 9094
