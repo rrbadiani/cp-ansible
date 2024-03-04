@@ -302,8 +302,8 @@ provisioner:
               key.converter: "org.apache.kafka.connect.json.JsonConverter"
               value.converter: "org.apache.kafka.connect.json.JsonConverter"
 
-      ldaps_enabled: false
       ldap_server:
+        ldaps_enabled: false
         ldap_admin_password: ldppassword
         ldap_rbac_group: rbac
         ldap_dc: example
