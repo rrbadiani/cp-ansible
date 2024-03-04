@@ -155,6 +155,7 @@ provisioner:
   inventory:
     group_vars:
       all:
+        mask_secrets: false
         scenario_name: rbac-scram-custom-rhel-fips
         # Test additional scram user
         sasl_scram_users:
