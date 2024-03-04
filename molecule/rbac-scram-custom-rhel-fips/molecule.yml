@@ -190,10 +190,10 @@ provisioner:
         ssl_signed_cert_filepath: "{{ lookup('env', 'MOLECULE_SCENARIO_DIRECTORY') }}/generated_ssl_files/{{inventory_hostname}}-ca1-signed.crt"
         ssl_key_filepath: "{{ lookup('env', 'MOLECULE_SCENARIO_DIRECTORY') }}/generated_ssl_files/{{inventory_hostname}}-key.pem"
         ssl_key_password: password
-        regenerate_ca: true
+        ## {# regenerate_ca: true #}
 
         rbac_enabled: true
-        regenerate_token_pem: true
+        ## {# regenerate_token_pem: true #}
         create_mds_certs: true
         mds_super_user: mds
         mds_super_user_password: mds
