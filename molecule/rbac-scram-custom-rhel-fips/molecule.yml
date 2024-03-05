@@ -213,6 +213,7 @@ provisioner:
         confluent.balancer.throttle.bytes.per.second: 10485760
 
         kafka_broker_principal: 'User:kafka;User:ANONYMOUS'
+        regenerate_keystore_and_truststore: true
         
         kafka_broker_custom_listeners:
           client_listener:
