@@ -214,7 +214,7 @@ provisioner:
 
         kafka_broker_principal: 'User:kafka;User:ANONYMOUS'
         regenerate_keystore_and_truststore: true
-        
+        regenerate_token_pem: true
         kafka_broker_custom_listeners:
           client_listener:
             name: CLIENT
