@@ -103,7 +103,7 @@ platforms:
       - name: confluent
   - name: kafka-connect1
     hostname: kafka-connect1.confluent
-      groups:
+    groups:
       - kafka_connect
       - kafka_connect_migration
     image: oraclelinux:9-slim
@@ -116,9 +116,9 @@ platforms:
       - name: confluent
   - name: kafka-connect2
     hostname: kafka-connect2.confluent
-      groups:
-        - kafka_connect
-        - kafka_connect_migration
+    groups:
+      - kafka_connect
+      - kafka_connect_migration
     image: oraclelinux:9-slim
     dockerfile: ../Dockerfile-rhel-java17.j2
     command: ""
