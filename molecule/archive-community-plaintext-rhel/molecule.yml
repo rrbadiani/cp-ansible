@@ -14,10 +14,11 @@ platforms:
       - ${CONTROLLER_HOSTGROUP:-zookeeper}
       - ${CONTROLLER_HOSTGROUP:-zookeeper}_migration
     image: oraclelinux:9-slim
+    cgroupns_mode: host
     dockerfile: ../Dockerfile-rhel-java17.j2
     command: ""
     volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+      - /sys/fs/cgroup:/sys/fs/cgroup:rw
     privileged: true
     networks:
       - name: confluent
@@ -27,10 +28,11 @@ platforms:
       - kafka_broker
       - kafka_broker_migration
     image: oraclelinux:9-slim
+    cgroupns_mode: host
     dockerfile: ../Dockerfile-rhel-java17.j2
     command: ""
     volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+      - /sys/fs/cgroup:/sys/fs/cgroup:rw
     privileged: true
     networks:
       - name: confluent
@@ -40,10 +42,11 @@ platforms:
       - schema_registry
       - schema_registry_migration
     image: oraclelinux:9-slim
+    cgroupns_mode: host
     dockerfile: ../Dockerfile-rhel-java17.j2
     command: ""
     volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+      - /sys/fs/cgroup:/sys/fs/cgroup:rw
     privileged: true
     networks:
       - name: confluent
@@ -53,10 +56,11 @@ platforms:
       - kafka_rest
       - kafka_rest_migration
     image: oraclelinux:9-slim
+    cgroupns_mode: host
     dockerfile: ../Dockerfile-rhel-java17.j2
     command: ""
     volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+      - /sys/fs/cgroup:/sys/fs/cgroup:rw
     privileged: true
     networks:
       - name: confluent
@@ -66,10 +70,11 @@ platforms:
       - kafka_connect
       - kafka_connect_migration
     image: oraclelinux:9-slim
+    cgroupns_mode: host
     dockerfile: ../Dockerfile-rhel-java17.j2
     command: ""
     volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+      - /sys/fs/cgroup:/sys/fs/cgroup:rw
     privileged: true
     networks:
       - name: confluent
@@ -79,10 +84,11 @@ platforms:
       - ksql
       - ksql_migration
     image: oraclelinux:9-slim
+    cgroupns_mode: host
     dockerfile: ../Dockerfile-rhel-java17.j2
     command: ""
     volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+      - /sys/fs/cgroup:/sys/fs/cgroup:rw
     privileged: true
     networks:
       - name: confluent
@@ -93,10 +99,11 @@ platforms:
     groups:
       - kafka_controller_migration
     image: oraclelinux:9-slim
+    cgroupns_mode: host
     dockerfile: ../Dockerfile-rhel-java17.j2
     command: ""
     volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+      - /sys/fs/cgroup:/sys/fs/cgroup:rw
     privileged: true
     networks:
       - name: confluent
