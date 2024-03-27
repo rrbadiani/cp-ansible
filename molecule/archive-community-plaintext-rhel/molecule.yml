@@ -13,10 +13,11 @@ platforms:
     groups:
       - zookeeper
     image: geerlingguy/docker-centos7-ansible
+    cgroupns_mode: host
     dockerfile: ../Dockerfile-rhel-base.j2
     command: ""
     volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+      - /sys/fs/cgroup:/sys/fs/cgroup:rw
     privileged: true
     networks:
       - name: confluent
@@ -25,10 +26,11 @@ platforms:
     groups:
       - kafka_broker
     image: geerlingguy/docker-centos7-ansible
+    cgroupns_mode: host
     dockerfile: ../Dockerfile-rhel-base.j2
     command: ""
     volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+      - /sys/fs/cgroup:/sys/fs/cgroup:rw
     privileged: true
     networks:
       - name: confluent
@@ -37,10 +39,11 @@ platforms:
     groups:
       - schema_registry
     image: geerlingguy/docker-centos7-ansible
+    cgroupns_mode: host
     dockerfile: ../Dockerfile-rhel-base.j2
     command: ""
     volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+      - /sys/fs/cgroup:/sys/fs/cgroup:rw
     privileged: true
     networks:
       - name: confluent
@@ -49,10 +52,11 @@ platforms:
     groups:
       - kafka_rest
     image: geerlingguy/docker-centos7-ansible
+    cgroupns_mode: host
     dockerfile: ../Dockerfile-rhel-base.j2
     command: ""
     volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+      - /sys/fs/cgroup:/sys/fs/cgroup:rw
     privileged: true
     networks:
       - name: confluent
@@ -61,10 +65,11 @@ platforms:
     groups:
       - kafka_connect
     image: geerlingguy/docker-centos7-ansible
+    cgroupns_mode: host
     dockerfile: ../Dockerfile-rhel-base.j2
     command: ""
     volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+      - /sys/fs/cgroup:/sys/fs/cgroup:rw
     privileged: true
     networks:
       - name: confluent
@@ -73,10 +78,11 @@ platforms:
     groups:
       - ksql
     image: geerlingguy/docker-centos7-ansible
+    cgroupns_mode: host
     dockerfile: ../Dockerfile-rhel-base.j2
     command: ""
     volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+      - /sys/fs/cgroup:/sys/fs/cgroup:rw
     privileged: true
     networks:
       - name: confluent
@@ -92,6 +98,7 @@ provisioner:
         confluent_archive_file_source: "{{ lookup('env', 'MOLECULE_SCENARIO_DIRECTORY') }}/confluent-community-{{confluent_package_version}}.tar.gz"
         confluent_archive_file_remote: false
         confluent_cli_archive_url: "https://s3-us-west-2.amazonaws.com/confluent.cloud/confluent-cli/archives/latest/confluent_latest_linux_amd64.tar.gz" # image: geerlingguy/docker-centos7-ansible is for linux/amd64
+ cgroupns_mode: host
         confluent_cli_archive_file_source: "{{ lookup('env', 'MOLECULE_SCENARIO_DIRECTORY') }}/confluent_latest_linux_amd64.tar.gz"
         confluent_cli_archive_file_remote: false
         confluent_cli_download_enabled: true

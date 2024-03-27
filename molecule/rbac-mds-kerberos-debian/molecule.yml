@@ -15,10 +15,11 @@ platforms:
     groups:
       - ldap_server
     image: geerlingguy/docker-centos7-ansible
+    cgroupns_mode: host
     dockerfile: ../Dockerfile.j2
     command: ""
     volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+      - /sys/fs/cgroup:/sys/fs/cgroup:rw
     privileged: true
     networks:
       - name: confluent
@@ -27,10 +28,11 @@ platforms:
     groups:
       - kerberos_server
     image: geerlingguy/docker-centos7-ansible
+    cgroupns_mode: host
     dockerfile: ../Dockerfile.j2
     command: ""
     volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+      - /sys/fs/cgroup:/sys/fs/cgroup:rw
     privileged: true
     networks:
       - name: confluent
@@ -41,10 +43,11 @@ platforms:
       - zookeeper
       - mds
     image: geerlingguy/docker-debian9-ansible
+    cgroupns_mode: host
     dockerfile: ../Dockerfile-debian.j2
     command: ""
     volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+      - /sys/fs/cgroup:/sys/fs/cgroup:rw
     privileged: true
     networks:
       - name: confluent
@@ -54,10 +57,11 @@ platforms:
       - kafka_broker
       - mds
     image: geerlingguy/docker-debian9-ansible
+    cgroupns_mode: host
     dockerfile: ../Dockerfile-debian.j2
     command: ""
     volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+      - /sys/fs/cgroup:/sys/fs/cgroup:rw
     privileged: true
     networks:
       - name: confluent
@@ -67,10 +71,11 @@ platforms:
       - kafka_broker
       - mds
     image: geerlingguy/docker-debian9-ansible
+    cgroupns_mode: host
     dockerfile: ../Dockerfile-debian.j2
     command: ""
     volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+      - /sys/fs/cgroup:/sys/fs/cgroup:rw
     privileged: true
     networks:
       - name: confluent
@@ -81,10 +86,11 @@ platforms:
       - zookeeper2
       - cluster2
     image: geerlingguy/docker-debian9-ansible
+    cgroupns_mode: host
     dockerfile: ../Dockerfile-debian.j2
     command: ""
     volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+      - /sys/fs/cgroup:/sys/fs/cgroup:rw
     privileged: true
     networks:
       - name: confluent
@@ -94,10 +100,11 @@ platforms:
       - kafka_broker2
       - cluster2
     image: geerlingguy/docker-debian9-ansible
+    cgroupns_mode: host
     dockerfile: ../Dockerfile-debian.j2
     command: ""
     volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+      - /sys/fs/cgroup:/sys/fs/cgroup:rw
     privileged: true
     networks:
       - name: confluent
@@ -107,10 +114,11 @@ platforms:
       - kafka_broker2
       - cluster2
     image: geerlingguy/docker-debian9-ansible
+    cgroupns_mode: host
     dockerfile: ../Dockerfile-debian.j2
     command: ""
     volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+      - /sys/fs/cgroup:/sys/fs/cgroup:rw
     privileged: true
     networks:
       - name: confluent
@@ -120,10 +128,11 @@ platforms:
       - kafka_broker2
       - cluster2
     image: geerlingguy/docker-debian9-ansible
+    cgroupns_mode: host
     dockerfile: ../Dockerfile-debian.j2
     command: ""
     volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+      - /sys/fs/cgroup:/sys/fs/cgroup:rw
     privileged: true
     networks:
       - name: confluent
@@ -133,10 +142,11 @@ platforms:
       - schema_registry2
       - cluster2
     image: geerlingguy/docker-debian9-ansible
+    cgroupns_mode: host
     dockerfile: ../Dockerfile-debian.j2
     command: ""
     volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+      - /sys/fs/cgroup:/sys/fs/cgroup:rw
     privileged: true
     networks:
       - name: confluent
@@ -146,10 +156,11 @@ platforms:
       - kafka_rest2
       - cluster2
     image: geerlingguy/docker-debian9-ansible
+    cgroupns_mode: host
     dockerfile: ../Dockerfile-debian.j2
     command: ""
     volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+      - /sys/fs/cgroup:/sys/fs/cgroup:rw
     privileged: true
     networks:
       - name: confluent
@@ -159,10 +170,11 @@ platforms:
       - kafka_connect2
       - cluster2
     image: geerlingguy/docker-debian9-ansible
+    cgroupns_mode: host
     dockerfile: ../Dockerfile-debian.j2
     command: ""
     volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+      - /sys/fs/cgroup:/sys/fs/cgroup:rw
     privileged: true
     networks:
       - name: confluent
@@ -172,10 +184,11 @@ platforms:
       - ksql2
       - cluster2
     image: geerlingguy/docker-debian9-ansible
+    cgroupns_mode: host
     dockerfile: ../Dockerfile-debian.j2
     command: ""
     volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+      - /sys/fs/cgroup:/sys/fs/cgroup:rw
     privileged: true
     networks:
       - name: confluent
@@ -185,10 +198,11 @@ platforms:
       - control_center2
       - cluster2
     image: geerlingguy/docker-debian9-ansible
+    cgroupns_mode: host
     dockerfile: ../Dockerfile-debian.j2
     command: ""
     volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+      - /sys/fs/cgroup:/sys/fs/cgroup:rw
     privileged: true
     published_ports:
       - "9021:9021"

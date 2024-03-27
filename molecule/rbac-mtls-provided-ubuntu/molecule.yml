@@ -14,10 +14,11 @@ platforms:
     groups:
       - ldap_server
     image: geerlingguy/docker-centos7-ansible
+    cgroupns_mode: host
     dockerfile: ../Dockerfile.j2
     command: ""
     volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+      - /sys/fs/cgroup:/sys/fs/cgroup:rw
     privileged: true
     networks:
       - name: confluent
@@ -26,10 +27,11 @@ platforms:
     groups:
       - zookeeper
     image: geerlingguy/docker-ubuntu1804-ansible
+    cgroupns_mode: host
     dockerfile: ../Dockerfile-ubuntu.j2
     command: ""
     volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+      - /sys/fs/cgroup:/sys/fs/cgroup:rw
     privileged: true
     networks:
       - name: confluent
@@ -38,10 +40,11 @@ platforms:
     groups:
       - kafka_broker
     image: geerlingguy/docker-ubuntu1804-ansible
+    cgroupns_mode: host
     dockerfile: ../Dockerfile-ubuntu.j2
     command: ""
     volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+      - /sys/fs/cgroup:/sys/fs/cgroup:rw
     privileged: true
     networks:
       - name: confluent
@@ -50,10 +53,11 @@ platforms:
     groups:
       - kafka_broker
     image: geerlingguy/docker-ubuntu1804-ansible
+    cgroupns_mode: host
     dockerfile: ../Dockerfile-ubuntu.j2
     command: ""
     volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+      - /sys/fs/cgroup:/sys/fs/cgroup:rw
     privileged: true
     networks:
       - name: confluent
@@ -62,10 +66,11 @@ platforms:
     groups:
       - kafka_broker
     image: geerlingguy/docker-ubuntu1804-ansible
+    cgroupns_mode: host
     dockerfile: ../Dockerfile-ubuntu.j2
     command: ""
     volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+      - /sys/fs/cgroup:/sys/fs/cgroup:rw
     privileged: true
     networks:
       - name: confluent
@@ -74,10 +79,11 @@ platforms:
     groups:
       - schema_registry
     image: geerlingguy/docker-ubuntu1804-ansible
+    cgroupns_mode: host
     dockerfile: ../Dockerfile-ubuntu.j2
     command: ""
     volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+      - /sys/fs/cgroup:/sys/fs/cgroup:rw
     privileged: true
     networks:
       - name: confluent
@@ -86,10 +92,11 @@ platforms:
     groups:
       - kafka_rest
     image: geerlingguy/docker-ubuntu1804-ansible
+    cgroupns_mode: host
     dockerfile: ../Dockerfile-ubuntu.j2
     command: ""
     volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+      - /sys/fs/cgroup:/sys/fs/cgroup:rw
     privileged: true
     networks:
       - name: confluent
@@ -98,10 +105,11 @@ platforms:
     groups:
       - kafka_connect
     image: geerlingguy/docker-ubuntu1804-ansible
+    cgroupns_mode: host
     dockerfile: ../Dockerfile-ubuntu.j2
     command: ""
     volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+      - /sys/fs/cgroup:/sys/fs/cgroup:rw
     privileged: true
     networks:
       - name: confluent
@@ -110,10 +118,11 @@ platforms:
     groups:
       - ksql
     image: geerlingguy/docker-ubuntu1804-ansible
+    cgroupns_mode: host
     dockerfile: ../Dockerfile-ubuntu.j2
     command: ""
     volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+      - /sys/fs/cgroup:/sys/fs/cgroup:rw
     privileged: true
     networks:
       - name: confluent
@@ -122,10 +131,11 @@ platforms:
     groups:
       - control_center
     image: geerlingguy/docker-ubuntu1804-ansible
+    cgroupns_mode: host
     dockerfile: ../Dockerfile-ubuntu.j2
     command: ""
     volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+      - /sys/fs/cgroup:/sys/fs/cgroup:rw
     privileged: true
     published_ports:
       - "9021:9021"

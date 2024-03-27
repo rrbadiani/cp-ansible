@@ -11,10 +11,11 @@ platforms:
     groups:
       - zookeeper
     image: geerlingguy/docker-centos7-ansible
+    cgroupns_mode: host
     dockerfile: ../Dockerfile.j2
     command: ""
     volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+      - /sys/fs/cgroup:/sys/fs/cgroup:rw
     privileged: true
     networks:
       - name: confluent${JOB_BASE_NAME}${BUILD_NUMBER}
@@ -23,10 +24,11 @@ platforms:
     groups:
       - kafka_broker
     image: geerlingguy/docker-centos7-ansible
+    cgroupns_mode: host
     dockerfile: ../Dockerfile.j2
     command: ""
     volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+      - /sys/fs/cgroup:/sys/fs/cgroup:rw
     privileged: true
     networks:
       - name: confluent${JOB_BASE_NAME}${BUILD_NUMBER}
@@ -35,10 +37,11 @@ platforms:
     groups:
       - schema_registry
     image: geerlingguy/docker-centos7-ansible
+    cgroupns_mode: host
     dockerfile: ../Dockerfile.j2
     command: ""
     volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+      - /sys/fs/cgroup:/sys/fs/cgroup:rw
     privileged: true
     networks:
       - name: confluent${JOB_BASE_NAME}${BUILD_NUMBER}
@@ -47,10 +50,11 @@ platforms:
     groups:
       - kafka_rest
     image: geerlingguy/docker-centos7-ansible
+    cgroupns_mode: host
     dockerfile: ../Dockerfile.j2
     command: ""
     volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+      - /sys/fs/cgroup:/sys/fs/cgroup:rw
     privileged: true
     networks:
       - name: confluent${JOB_BASE_NAME}${BUILD_NUMBER}
@@ -59,10 +63,11 @@ platforms:
     groups:
       - kafka_connect
     image: geerlingguy/docker-centos7-ansible
+    cgroupns_mode: host
     dockerfile: ../Dockerfile.j2
     command: ""
     volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+      - /sys/fs/cgroup:/sys/fs/cgroup:rw
     privileged: true
     networks:
       - name: confluent${JOB_BASE_NAME}${BUILD_NUMBER}
@@ -71,10 +76,11 @@ platforms:
     groups:
       - ksql
     image: geerlingguy/docker-centos7-ansible
+    cgroupns_mode: host
     dockerfile: ../Dockerfile.j2
     command: ""
     volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+      - /sys/fs/cgroup:/sys/fs/cgroup:rw
     privileged: true
     networks:
       - name: confluent${JOB_BASE_NAME}${BUILD_NUMBER}
@@ -83,10 +89,11 @@ platforms:
     groups:
       - control_center
     image: geerlingguy/docker-centos7-ansible
+    cgroupns_mode: host
     dockerfile: ../Dockerfile.j2
     command: ""
     volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+      - /sys/fs/cgroup:/sys/fs/cgroup:rw
     privileged: true
     ## Commenting below to avoid port collision on jenkins server
     ## Uncomment to view c3 in browser at localhost:9021
