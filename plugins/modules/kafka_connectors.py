@@ -310,7 +310,7 @@ def run_module():
         active_connectors=dict(type='list', elements='dict', required=True),
         timeout=dict(type='int', required=False, default=30),
         username=dict(type='str', required=False),
-        password=dict(type='str', required=False),
+        password=dict(type='str', required=False, no_log=True),
         client_cert=dict(type='path', required=False),
         client_key=dict(type='path', required=False),
     )
