@@ -174,7 +174,7 @@ platforms:
   #   dockerfile: ../Dockerfile-debian.j2
   #   command: ""
   #   cgroupns_mode: host
-   volumes:
+  #   volumes:
   #     - /sys/fs/cgroup:/sys/fs/cgroup:rw
   #   privileged: true
   #   published_ports:
