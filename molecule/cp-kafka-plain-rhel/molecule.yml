@@ -12,8 +12,9 @@ platforms:
       - zookeeper
     image: geerlingguy/docker-centos7-ansible
     command: ""
+    cgroupns_mode: host
     volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+      - /sys/fs/cgroup:/sys/fs/cgroup:rw
     privileged: true
     networks:
       - name: confluent
@@ -24,8 +25,9 @@ platforms:
       - zookeeper
     image: geerlingguy/docker-centos7-ansible
     command: ""
+    cgroupns_mode: host
     volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+      - /sys/fs/cgroup:/sys/fs/cgroup:rw
     privileged: true
     networks:
       - name: confluent
@@ -36,8 +38,9 @@ platforms:
       - zookeeper
     image: geerlingguy/docker-centos7-ansible
     command: ""
+    cgroupns_mode: host
     volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+      - /sys/fs/cgroup:/sys/fs/cgroup:rw
     privileged: true
     networks:
       - name: confluent
@@ -47,8 +50,9 @@ platforms:
       - schema_registry
     image: geerlingguy/docker-centos7-ansible
     command: ""
+    cgroupns_mode: host
     volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+      - /sys/fs/cgroup:/sys/fs/cgroup:rw
     privileged: true
     networks:
       - name: confluent
@@ -58,8 +62,9 @@ platforms:
       - kafka_rest
     image: geerlingguy/docker-centos7-ansible
     command: ""
+    cgroupns_mode: host
     volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+      - /sys/fs/cgroup:/sys/fs/cgroup:rw
     privileged: true
     networks:
       - name: confluent
@@ -69,8 +74,9 @@ platforms:
       - kafka_connect
     image: geerlingguy/docker-centos7-ansible
     command: ""
+    cgroupns_mode: host
     volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+      - /sys/fs/cgroup:/sys/fs/cgroup:rw
     privileged: true
     networks:
       - name: confluent
@@ -80,8 +86,9 @@ platforms:
       - ksql
     image: geerlingguy/docker-centos7-ansible
     command: ""
+    cgroupns_mode: host
     volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+      - /sys/fs/cgroup:/sys/fs/cgroup:rw
     privileged: true
     networks:
       - name: confluent
@@ -91,8 +98,9 @@ platforms:
       - control_center
     image: geerlingguy/docker-centos7-ansible
     command: ""
+    cgroupns_mode: host
     volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+      - /sys/fs/cgroup:/sys/fs/cgroup:rw
     privileged: true
     published_ports:
       - "9021:9021"
