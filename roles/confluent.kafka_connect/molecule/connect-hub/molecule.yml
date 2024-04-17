@@ -9,8 +9,9 @@ platforms:
     image: geerlingguy/docker-centos7-ansible
     dockerfile: ../../../confluent.test/molecule/Dockerfile.j2
     command: ""
+    cgroupns_mode: host
     volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+      - /sys/fs/cgroup:/sys/fs/cgroup:rw
     privileged: true
     networks:
       - name: confluent
@@ -21,8 +22,9 @@ platforms:
     image: geerlingguy/docker-centos7-ansible
     dockerfile: ../../../confluent.test/molecule/Dockerfile.j2
     command: ""
+    cgroupns_mode: host
     volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+      - /sys/fs/cgroup:/sys/fs/cgroup:rw
     privileged: true
     networks:
       - name: confluent
@@ -33,8 +35,9 @@ platforms:
     image: geerlingguy/docker-centos7-ansible
     dockerfile: ../../../confluent.test/molecule/Dockerfile.j2
     command: ""
+    cgroupns_mode: host
     volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+      - /sys/fs/cgroup:/sys/fs/cgroup:rw
     privileged: true
     networks:
       - name: confluent
