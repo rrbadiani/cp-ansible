@@ -34,19 +34,6 @@ platforms:
     privileged: true
     networks:
       - name: confluent
-  - name: schema-registry1
-    hostname: schema-registry1.confluent
-    groups:
-      - schema_registry
-      - schema_registry_migration
-    image: oraclelinux:9-slim
-    dockerfile: ../Dockerfile-rhel-java17.j2
-    command: ""
-    volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:ro
-    privileged: true
-    networks:
-      - name: confluent
   - name: kafka-rest1
     hostname: kafka-rest1.confluent
     groups:
@@ -78,6 +65,19 @@ platforms:
     groups:
       - ksql
       - ksql_migration
+    image: oraclelinux:9-slim
+    dockerfile: ../Dockerfile-rhel-java17.j2
+    command: ""
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+    privileged: true
+    networks:
+      - name: confluent
+  - name: schema-registry1
+    hostname: schema-registry1.confluent
+    groups:
+      - schema_registry
+      - schema_registry_migration
     image: oraclelinux:9-slim
     dockerfile: ../Dockerfile-rhel-java17.j2
     command: ""
