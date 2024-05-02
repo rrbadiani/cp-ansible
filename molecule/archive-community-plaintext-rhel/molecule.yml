@@ -107,6 +107,9 @@ provisioner:
     group_vars:
       all:
         confluent_server_enabled: false
+        secrets_protection_enabled: true
+        ssl_enabled: true
+        sasl_protocol: scram
 
         installation_method: archive
         confluent_community_archive_url: "{{ lookup('env', 'COMMON_REPO_URL') | default('http://packages.confluent.io', true) }}/archive/{{confluent_repo_version}}/confluent-community-{{confluent_package_version}}.tar.gz"
