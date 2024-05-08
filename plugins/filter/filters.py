@@ -6,6 +6,7 @@ module: filter
 description: This plugin contains python functions which act as custom filters to generate configurations based on Ansible input.
 '''
 
+
 class FilterModule(object):
     def filters(self):
         return {
