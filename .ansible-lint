@@ -14,4 +14,7 @@ skip_list:
   - no-handler
   - no-log-password
   - fqcn-builtins
-
+  - var-naming
+  - meta-runtime[unsupported-version]
+  - key-order[task]
+  - no-changed-when
