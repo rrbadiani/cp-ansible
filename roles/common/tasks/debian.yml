@@ -16,8 +16,19 @@
   delay: 90
   tags: package
 
+# - name: Install apt-transport-https
+#   shell:
+#     cmd: apt-get install apt-transport-https -y --force-yes
+#   register: install_apt_transport_result
+#   until: install_apt_transport_result is success  or ansible_check_mode
+#   retries: 5
+#   delay: 90
+
 - name: Install apt-transport-https
-  shell: apt-get install apt-transport-https -y --force-yes
+  apt:
+    name: apt-transport-https
+    force: true
+    state: present
   register: install_apt_transport_result
   until: install_apt_transport_result is success  or ansible_check_mode
   retries: 5
@@ -119,6 +130,18 @@
     - install_java|bool
     - repository_configuration == 'confluent'
 
+# - name: Add bookwork-backports Repo
+#   lineinfile:
+#     path: /etc/apt/sources.list
+#     line: deb [check-valid-until=no] http://archive.debian.org/debian bookworm-backports main
+#     regexp: '.*bookworm-backports.*'
+#   notify:
+#     - debian apt-get update
+#   when:
+#     - install_java|bool
+#     - repository_configuration == 'confluent'
+#     - ansible_distribution_release == "bookworm"
+
 - name: Add jessie-backports Repo
   lineinfile:
     path: /etc/apt/sources.list
@@ -170,6 +193,20 @@
     - add_sid_repo|bool
 
 - meta: flush_handlers
+
+- name: Install Java - bookworm
+  apt:
+    name: "{{ debian_java_package_name }}"
+    state: present
+    default_release: bookworm-backports
+  register: java_install_result
+  until: java_install_result is success  or ansible_check_mode
+  retries: 10
+  delay: 5
+  when:
+    - install_java|bool
+    - repository_configuration == 'confluent'
+    - ansible_distribution_release == "bookworm"
 
 - name: Install Java - jessie
   apt:
