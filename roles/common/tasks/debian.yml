@@ -291,11 +291,11 @@
   become: true
   tags: package
 
-- name: Upgrade pip
-  ansible.builtin.pip:
-    name: pip
-    extra_args: --upgrade
-  tags: package
+# - name: Upgrade pip
+#   ansible.builtin.pip:
+#     name: pip
+#     extra_args: --upgrade
+#   tags: package
 
 - name: Install pip packages
   ansible.builtin.pip:
