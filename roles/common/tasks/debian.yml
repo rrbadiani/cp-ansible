@@ -130,18 +130,6 @@
     - install_java|bool
     - repository_configuration == 'confluent'
 
-# - name: Add bookwork-backports Repo
-#   lineinfile:
-#     path: /etc/apt/sources.list
-#     line: deb [check-valid-until=no] http://archive.debian.org/debian bookworm-backports main
-#     regexp: '.*bookworm-backports.*'
-#   notify:
-#     - debian apt-get update
-#   when:
-#     - install_java|bool
-#     - repository_configuration == 'confluent'
-#     - ansible_distribution_release == "bookworm"
-
 - name: Add jessie-backports Repo
   lineinfile:
     path: /etc/apt/sources.list
@@ -297,7 +285,14 @@
 #     extra_args: --upgrade
 #   tags: package
 
+# - name: Install pip packages
+#   ansible.builtin.pip:
+#     name: "{{pip_packages}}"
+#   tags: package
+
 - name: Install pip packages
-  ansible.builtin.pip:
-    name: "{{pip_packages}}"
+  apt:
+    name: "python3-{{item}}"
+    state: present
+  loop: "{{pip_packages}}"
   tags: package
