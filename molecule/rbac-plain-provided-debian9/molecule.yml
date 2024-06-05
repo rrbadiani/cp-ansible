@@ -119,32 +119,32 @@ platforms:
   #   privileged: true
   #   networks:
   #     - name: confluent
-  - name: schema-registry1
-    hostname: schema-registry1.confluent
-    groups:
-      - schema_registry
-      - schema_registry_migration
-    image: geerlingguy/docker-debian9-ansible
-    dockerfile: ../Dockerfile-debian.j2
-    command: ""
-    volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:ro
-    privileged: true
-    networks:
-      - name: confluent
-  - name: kafka-rest1
-    hostname: kafka-rest1.confluent
-    groups:
-      - kafka_rest
-      - kafka_rest_migration
-    image: geerlingguy/docker-debian9-ansible
-    dockerfile: ../Dockerfile-debian.j2
-    command: ""
-    volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:ro
-    privileged: true
-    networks:
-      - name: confluent
+  # - name: schema-registry1
+  #   hostname: schema-registry1.confluent
+  #   groups:
+  #     - schema_registry
+  #     - schema_registry_migration
+  #   image: geerlingguy/docker-debian9-ansible
+  #   dockerfile: ../Dockerfile-debian.j2
+  #   command: ""
+  #   volumes:
+  #     - /sys/fs/cgroup:/sys/fs/cgroup:ro
+  #   privileged: true
+  #   networks:
+  #     - name: confluent
+  # - name: kafka-rest1
+  #   hostname: kafka-rest1.confluent
+  #   groups:
+  #     - kafka_rest
+  #     - kafka_rest_migration
+  #   image: geerlingguy/docker-debian9-ansible
+  #   dockerfile: ../Dockerfile-debian.j2
+  #   command: ""
+  #   volumes:
+  #     - /sys/fs/cgroup:/sys/fs/cgroup:ro
+  #   privileged: true
+  #   networks:
+  #     - name: confluent
   - name: kafka-connect1
     hostname: kafka-connect1.confluent
     groups:
@@ -223,7 +223,7 @@ provisioner:
 
         oauth_enabled: true
         schema_registry_oauth_enabled: false
-        kafka_rest_oauth_enabled: true
+        kafka_rest_oauth_enabled: false
         kafka_connect_oauth_enabled: true
         mask_secrets: false
         ldap_with_oauth_enabled: true
