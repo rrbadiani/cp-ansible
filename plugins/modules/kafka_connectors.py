@@ -91,15 +91,21 @@ RUNNING_STATE = "RUNNING"
 WAIT_TIME_BEFORE_GET_STATUS = 1  # seconds
 TIMEOUT_WAITING_FOR_TASK_STATUS = 30  # seconds
 
+def get_headers(token):
+    headers = {
+        'Authorization': f'Bearer {token}',
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+    }
+    return headers
 
-def get_current_connectors(connect_url, timeout, username, password, client_cert, client_key):
+def get_current_connectors(connect_url, timeout, token, client_cert, client_key):
     try:
+        
         res = open_url(
             connect_url,
             validate_certs=False,
-            timeout=timeout,
-            url_username=username,
-            url_password=password,
+            headers = get_headers(token),
             client_cert=client_cert,
             client_key=client_key
         )
@@ -110,15 +116,14 @@ def get_current_connectors(connect_url, timeout, username, password, client_cert
         return []
 
 
-def remove_connector(connect_url, name, timeout, username, password, client_cert, client_key):
+def remove_connector(connect_url, name, timeout, token, client_cert, client_key):
     url = "{}/{}".format(connect_url, name)
     r = open_url(
         method='DELETE',
         url=url,
         validate_certs=False,
         timeout=timeout,
-        url_username=username,
-        url_password=password,
+        headers=get_headers(token),
         client_cert=client_cert,
         client_key=client_key
     )
@@ -126,7 +131,7 @@ def remove_connector(connect_url, name, timeout, username, password, client_cert
 
 
 # return value: success (bool), changed (bool), message (str)
-def create_new_connector(connect_url, name, config, timeout, username, password, client_cert, client_key):
+def create_new_connector(connect_url, name, config, timeout, token, client_cert, client_key):
     data = json.dumps({'name': name, 'config': config})
     headers = {'Content-Type': 'application/json'}
     try:
@@ -137,8 +142,7 @@ def create_new_connector(connect_url, name, config, timeout, username, password,
             headers=headers,
             validate_certs=False,
             timeout=timeout,
-            url_username=username,
-            url_password=password,
+            headers=get_headers(token),
             client_cert=client_cert,
             client_key=client_key
         )
@@ -150,7 +154,7 @@ def create_new_connector(connect_url, name, config, timeout, username, password,
     changed = True
     message = "new connector added"
 
-    is_running, failures_msg = get_connector_status(connect_url, name, timeout, username, password, client_cert, client_key)
+    is_running, failures_msg = get_connector_status(connect_url, name, timeout, token, client_cert, client_key)
     if not is_running:
         success = False
         message = failures_msg
@@ -168,7 +172,7 @@ def truncate_error_message(message):
 
 # to be successful, the connector and all its tasks must be running
 # if anything fails, we fail and return the associated error messages
-def get_connector_status(connect_url, connector_name, timeout, username, password, client_cert, client_key):
+def get_connector_status(connect_url, connector_name, timeout, token, client_cert, client_key):
     time.sleep(WAIT_TIME_BEFORE_GET_STATUS)
     status_url = "{}/{}/status".format(connect_url, connector_name)
 
@@ -176,8 +180,7 @@ def get_connector_status(connect_url, connector_name, timeout, username, passwor
         status_url,
         validate_certs=False,
         timeout=timeout,
-        url_username=username,
-        url_password=password,
+        headers=get_headers(token),
         client_cert=client_cert,
         client_key=client_key
     )
@@ -201,8 +204,7 @@ def get_connector_status(connect_url, connector_name, timeout, username, passwor
             status_url,
             validate_certs=False,
             timeout=timeout,
-            url_username=username,
-            url_password=password,
+            headers=get_headers(token),
             client_cert=client_cert,
             client_key=client_key
         )
@@ -220,11 +222,11 @@ def get_connector_status(connect_url, connector_name, timeout, username, passwor
 
 
 # return value: success (bool), changed (bool), message (str)
-def update_existing_connector(connect_url, name, config, timeout, username, password, client_cert, client_key):
+def update_existing_connector(connect_url, name, config, timeout, token, client_cert, client_key):
     url = "{}/{}/config".format(connect_url, name)
     restart_url = "{}/{}/restart".format(connect_url, name)
 
-    res = open_url(url, validate_certs=False, timeout=timeout, url_username=username, url_password=password, client_cert=client_cert, client_key=client_key)
+    res = open_url(url, validate_certs=False, timeout=timeout, headers=get_headers(token), client_cert=client_cert, client_key=client_key)
     current_config = json.loads(res.read())
 
     existing_config = config.copy()
@@ -249,8 +251,7 @@ def update_existing_connector(connect_url, name, config, timeout, username, pass
             headers=headers,
             validate_certs=False,
             timeout=timeout,
-            url_username=username,
-            url_password=password,
+            headers=get_headers(token),
             client_cert=client_cert,
             client_key=client_key
         )
@@ -273,8 +274,7 @@ def update_existing_connector(connect_url, name, config, timeout, username, pass
             url=restart_url,
             validate_certs=False,
             timeout=timeout,
-            url_username=username,
-            url_password=password,
+            headers=get_headers(token),
             client_cert=client_cert,
             client_key=client_key
         )
@@ -289,7 +289,7 @@ def update_existing_connector(connect_url, name, config, timeout, username, pass
     # get the connector's status
     # if failed, return it
     # if there's a rebalance, wait for it to finish? how?
-    is_running, failures_msg = get_connector_status(connect_url, name, timeout, username, password, client_cert, client_key)
+    is_running, failures_msg = get_connector_status(connect_url, name, timeout, get_headers(token), client_cert, client_key)
     if not is_running:
         success = False
         message = failures_msg
@@ -309,8 +309,9 @@ def run_module():
         connect_url=dict(type='str', required=True),
         active_connectors=dict(type='list', elements='dict', required=True),
         timeout=dict(type='int', required=False, default=30),
-        username=dict(type='str', required=False),
-        password=dict(type='str', required=False, no_log=True),
+        # username=dict(type='str', required=False),
+        # password=dict(type='str', required=False, no_log=True),
+        token=dict(type='str', required=True),
         client_cert=dict(type='path', required=False),
         client_key=dict(type='path', required=False),
     )
@@ -338,8 +339,7 @@ def run_module():
         current_connector_names = get_current_connectors(
             connect_url=module.params['connect_url'],
             timeout=module.params['timeout'],
-            username=module.params['username'],
-            password=module.params['password'],
+            token=module.params['token'],
             client_cert=module.params['client_cert'],
             client_key=module.params['client_key']
         )
@@ -351,8 +351,7 @@ def run_module():
                 connect_url=module.params['connect_url'],
                 name=to_delete,
                 timeout=module.params['timeout'],
-                username=module.params['username'],
-                password=module.params['password'],
+                token=module.params['token'],
                 client_cert=module.params['client_cert'],
                 client_key=module.params['client_key']
             )
@@ -371,8 +370,7 @@ def run_module():
                     name=connector['name'],
                     config=connector['config'],
                     timeout=module.params['timeout'],
-                    username=module.params['username'],
-                    password=module.params['password'],
+                    token=module.params['token'],
                     client_cert=module.params['client_cert'],
                     client_key=module.params['client_key']
                 )
@@ -382,8 +380,7 @@ def run_module():
                     name=connector['name'],
                     config=connector['config'],
                     timeout=module.params['timeout'],
-                    username=module.params['username'],
-                    password=module.params['password'],
+                    token=module.params['token'],
                     client_cert=module.params['client_cert'],
                     client_key=module.params['client_key']
                 )
