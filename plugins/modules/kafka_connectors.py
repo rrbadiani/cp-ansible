@@ -131,7 +131,7 @@ def remove_connector(connect_url, name, timeout, token, client_cert, client_key)
 # return value: success (bool), changed (bool), message (str)
 def create_new_connector(connect_url, name, config, timeout, token, client_cert, client_key):
     data = json.dumps({'name': name, 'config': config})
-    headers = {'Content-Type': 'application/json'}
+    headers = {'Content-Type': 'application/json','Authorization': f'Bearer {token}'}
     try:
         r = open_url(
             method='POST',
@@ -140,7 +140,6 @@ def create_new_connector(connect_url, name, config, timeout, token, client_cert,
             headers=headers,
             validate_certs=False,
             timeout=timeout,
-            headers=get_headers(token),
             client_cert=client_cert,
             client_key=client_key
         )
@@ -239,7 +238,7 @@ def update_existing_connector(connect_url, name, config, timeout, token, client_
     # configuration has changed, let's update it
 
     data = json.dumps(config)
-    headers = {'Content-Type': 'application/json'}
+    headers = {'Content-Type': 'application/json','Authorization': f'Bearer {token}'}
     r = None
     try:
         r = open_url(
@@ -249,7 +248,6 @@ def update_existing_connector(connect_url, name, config, timeout, token, client_
             headers=headers,
             validate_certs=False,
             timeout=timeout,
-            headers=get_headers(token),
             client_cert=client_cert,
             client_key=client_key
         )
