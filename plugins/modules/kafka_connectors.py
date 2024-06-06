@@ -93,9 +93,7 @@ TIMEOUT_WAITING_FOR_TASK_STATUS = 30  # seconds
 
 def get_headers(token):
     headers = {
-        'Authorization': f'Bearer {token}',
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
+        'Authorization': f'Bearer {token}'
     }
     return headers
 
