@@ -93,7 +93,7 @@ TIMEOUT_WAITING_FOR_TASK_STATUS = 30  # seconds
 
 def get_headers(token):
     headers = {
-        'Authorization': f'Bearer {token}'
+        'Authorization': 'Bearer {}'.format(token)
     }
     return headers
 
@@ -131,7 +131,7 @@ def remove_connector(connect_url, name, timeout, token, client_cert, client_key)
 # return value: success (bool), changed (bool), message (str)
 def create_new_connector(connect_url, name, config, timeout, token, client_cert, client_key):
     data = json.dumps({'name': name, 'config': config})
-    headers = {'Content-Type': 'application/json','Authorization': f'Bearer {token}'}
+    headers = {'Content-Type': 'application/json','Authorization': 'Bearer {}'.format(token)}
     try:
         r = open_url(
             method='POST',
@@ -238,7 +238,7 @@ def update_existing_connector(connect_url, name, config, timeout, token, client_
     # configuration has changed, let's update it
 
     data = json.dumps(config)
-    headers = {'Content-Type': 'application/json','Authorization': f'Bearer {token}'}
+    headers = {'Content-Type': 'application/json','Authorization': 'Bearer {}'.format(token)}
     r = None
     try:
         r = open_url(
