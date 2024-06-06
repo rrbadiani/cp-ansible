@@ -4,11 +4,12 @@
     name: common
     tasks_from: get_authorization_token.yml
   vars:
-    oauth: "{{ oauth_enabled }}"
-    oauth_user: "{{ oauth_client_id }}"
-    oauth_password: "{{ oauth_client_password }}"
-    ldap_user: "{{ mds_super_user }}"
-    ldap_password: "{{ mds_super_user_password }}"
+    oauth: "{{ kafka_connect_oauth_enabled }}"
+    oauth_user: "{{ kafka_connect_oauth_user }}"
+    oauth_password: "{{ kafka_connect_oauth_password }}"
+    ldap_user: "{{ kafka_connect_ldap_user }}"
+    ldap_password: "{{ kafka_connect_ldap_password }}"
+  when: rbac_enabled or kafka_connect_oauth_enabled
 
 - name: Register Kafka Connect Subgroups
   set_fact:
