@@ -225,7 +225,8 @@ provisioner:
             name: CLIENT
             port: 9093
 
-        kafka_connect_secret_registry_enabled: false
+        ssl_enabled: true
+        ssl_mutual_auth_enabled: true
 
         oauth_enabled: true
         oauth_client_id: superuser
